@@ -28,14 +28,8 @@
   <!-- Site header holds branding, the dropdown menu, and the theme toggle -->
   <header class="site-header">
     <div class="header-inner">
-      <!-- Left side: dropdown menu and site identity -->
       <div class="header-left">
         <div class="menu-wrapper">
-          <!--
-            This button controls the dropdown menu.
-            aria-expanded is updated in JavaScript so assistive technology
-            knows whether the menu is open or closed.
-          -->
           <button
             class="menu-button"
             id="menu-button"
@@ -48,11 +42,6 @@
             <span class="menu-button-text">Menu</span>
           </button>
 
-          <!--
-            Dropdown navigation.
-            Hidden by default and shown with JavaScript.
-            Using regular links keeps it simple and keyboard-friendly.
-          -->
           <nav class="dropdown-menu" id="site-menu" aria-label="Main menu" hidden>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
@@ -62,14 +51,12 @@
           </nav>
         </div>
 
-        <!-- Main site branding -->
         <div class="site-branding">
           <p class="site-title">SpamBambino Playground</p>
           <p class="site-tagline">A Place to Host My Random Projects</p>
         </div>
       </div>
 
-      <!-- Right side: manual theme toggle on top of automatic system preference support -->
       <button
         class="theme-toggle"
         id="theme-toggle"
@@ -81,9 +68,7 @@
     </div>
   </header>
 
-  <!-- Main page content -->
   <main id="main-content" class="page-content">
-    <!-- Intro section keeps the first version clean and easy to understand -->
     <section class="hero" aria-labelledby="hero-title">
       <p class="eyebrow">Project Hub</p>
       <h1 id="hero-title">A simple home base for demos, experiments, and future projects.</h1>
@@ -92,55 +77,20 @@
       </p>
     </section>
 
-    <!-- Project tile grid: 6 equal-size cards total, 1 real project + 5 placeholders -->
     <section class="projects-section" aria-labelledby="projects-title">
       <div class="section-heading">
         <h2 id="projects-title">Projects</h2>
         <p>Version 1 uses small icons and simple labels so the layout is easy to maintain.</p>
       </div>
 
-      <div class="project-grid">
-        <!-- Real project tile -->
-        <a class="project-tile" href="https://spambambino.github.io/test-project/">
-          <span class="tile-icon" aria-hidden="true">🔢</span>
-          <span class="tile-title">Counter App Demo</span>
-          <span class="tile-description">Live demo project in a separate repository.</span>
-        </a>
-
-        <!-- Placeholder tiles -->
-        <article class="project-tile placeholder-tile">
-          <span class="tile-icon" aria-hidden="true">📁</span>
-          <span class="tile-title">Placeholder Project 1</span>
-          <span class="tile-description">Reserved for a future project.</span>
-        </article>
-
-        <article class="project-tile placeholder-tile">
-          <span class="tile-icon" aria-hidden="true">📁</span>
-          <span class="tile-title">Placeholder Project 2</span>
-          <span class="tile-description">Reserved for a future project.</span>
-        </article>
-
-        <article class="project-tile placeholder-tile">
-          <span class="tile-icon" aria-hidden="true">📁</span>
-          <span class="tile-title">Placeholder Project 3</span>
-          <span class="tile-description">Reserved for a future project.</span>
-        </article>
-
-        <article class="project-tile placeholder-tile">
-          <span class="tile-icon" aria-hidden="true">📁</span>
-          <span class="tile-title">Placeholder Project 4</span>
-          <span class="tile-description">Reserved for a future project.</span>
-        </article>
-
-        <article class="project-tile placeholder-tile">
-          <span class="tile-icon" aria-hidden="true">📁</span>
-          <span class="tile-title">Placeholder Project 5</span>
-          <span class="tile-description">Reserved for a future project.</span>
-        </article>
-      </div>
+      <!--
+        JavaScript will build the 6 project tiles here.
+        This keeps the page easier to update later because we will edit
+        the data in script.js instead of hand-editing the tile HTML every time.
+      -->
+      <div class="project-grid" id="project-grid"></div>
     </section>
 
-    <!-- Placeholder content sections linked from the dropdown menu -->
     <section id="about" class="info-section" aria-labelledby="about-title">
       <h2 id="about-title">About</h2>
       <p>
@@ -170,12 +120,10 @@
     </section>
   </main>
 
-  <!-- Small footer for a simple finished feeling -->
   <footer class="site-footer">
     <p>Built with GitHub Pages, VS Code, and GitHub Desktop.</p>
   </footer>
 
-  <!-- JavaScript for dropdown menu behavior and theme toggle -->
   <script src="script.js"></script>
 </body>
 </html>
