@@ -1,0 +1,431 @@
+/*
+  SpamBambino Playground - Version 1 homepage styles
+
+  What this file does:
+  - Defines the visual design for the homepage
+  - Supports light mode and dark mode
+  - Makes the layout responsive
+  - Styles the dropdown menu, project tiles, sections, and footer
+  - Includes accessible focus states for keyboard users
+
+  Why use a separate CSS file:
+  - Keeps styling separate from page structure
+  - Makes debugging easier
+  - Helps you find and change colors, spacing, and layout later
+*/
+
+/* ------------------------------ */
+/* Theme variables                */
+/* ------------------------------ */
+
+:root {
+  color-scheme: light dark;
+
+  /* Light mode colors */
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-hover: #f0f4ff;
+  --text: #1f2937;
+  --muted: #5b6472;
+  --border: #d8deea;
+  --accent: #2f6fed;
+  --accent-strong: #1e56c6;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+
+  /* Layout values */
+  --max-width: 1100px;
+  --radius: 16px;
+  --radius-small: 12px;
+  --header-height: 88px;
+}
+
+/*
+  If the user's operating system is in dark mode, these values automatically
+  become the default unless overridden in JavaScript with the data-theme attribute.
+*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a;
+    --surface: #162033;
+    --surface-hover: #1c2942;
+    --text: #e5ecf6;
+    --muted: #b6c2d3;
+    --border: #2a3b5d;
+    --accent: #7aa2ff;
+    --accent-strong: #9ab8ff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/*
+  Manual theme overrides.
+  JavaScript sets data-theme on the <html> element when the user clicks the toggle.
+*/
+html[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-hover: #f0f4ff;
+  --text: #1f2937;
+  --muted: #5b6472;
+  --border: #d8deea;
+  --accent: #2f6fed;
+  --accent-strong: #1e56c6;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0f172a;
+  --surface: #162033;
+  --surface-hover: #1c2942;
+  --text: #e5ecf6;
+  --muted: #b6c2d3;
+  --border: #2a3b5d;
+  --accent: #7aa2ff;
+  --accent-strong: #9ab8ff;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* ------------------------------ */
+/* Reset / base styles            */
+/* ------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Improve image behavior if you add images later */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Better default link behavior */
+a {
+  color: inherit;
+}
+
+/* Accessible focus style for keyboard navigation */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Skip link is hidden until keyboard users tab to it */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 1000;
+  background: var(--accent);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ------------------------------ */
+/* Header                         */
+/* ------------------------------ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  min-height: var(--header-height);
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ------------------------------ */
+/* Dropdown menu                  */
+/* ------------------------------ */
+
+.menu-wrapper {
+  position: relative;
+}
+
+.menu-button,
+.theme-toggle {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.menu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 0.95rem;
+}
+
+.menu-button-icon {
+  font-size: 1.1rem;
+}
+
+.menu-button-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 0;
+  width: min(240px, 80vw);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+  box-shadow: var(--shadow);
+  padding: 0.5rem;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.8rem 0.9rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu a:focus-visible {
+  background: var(--surface-hover);
+}
+
+/* ------------------------------ */
+/* Branding                       */
+/* ------------------------------ */
+
+.site-branding {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.site-tagline {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* ------------------------------ */
+/* Main page layout               */
+/* ------------------------------ */
+
+.page-content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.hero,
+.projects-section,
+.info-section {
+  margin-bottom: 2.5rem;
+}
+
+.hero {
+  padding: 2rem 0 1rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.6rem;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
+.hero h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.15;
+}
+
+.hero-text {
+  max-width: 700px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.section-heading h2,
+.info-section h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.section-heading p,
+.info-section p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ------------------------------ */
+/* Project grid and tiles         */
+/* ------------------------------ */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.project-tile {
+  min-height: 190px;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.project-tile:hover {
+  transform: translateY(-3px);
+  background: var(--surface-hover);
+}
+
+.tile-icon {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+}
+
+.tile-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.tile-description {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.placeholder-tile {
+  cursor: default;
+}
+
+/* ------------------------------ */
+/* Info sections                  */
+/* ------------------------------ */
+
+.info-section {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+/* ------------------------------ */
+/* Footer                         */
+/* ------------------------------ */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.25rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ------------------------------ */
+/* Responsive rules               */
+/* ------------------------------ */
+
+@media (min-width: 700px) {
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 980px) {
+  .project-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/*
+  Mobile layout adjustments:
+  - Stacks header items more cleanly
+  - Keeps controls readable and tappable
+*/
+@media (max-width: 700px) {
+  .header-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .header-left {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-branding {
+    width: 100%;
+  }
+}
